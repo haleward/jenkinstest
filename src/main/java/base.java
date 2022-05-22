@@ -42,8 +42,12 @@ public class base {
             driver = new FirefoxDriver();
             //firefox code
         } else if (browserName.equals("IE")) {
-//	IE code
+            //	IE code
+        } else {
+            System.setProperty("webdriver.chrome.driver", basePath + "\\src\\main\\resources\\chromedriver.exe");
+            driver = new ChromeDriver();
         }
+
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
