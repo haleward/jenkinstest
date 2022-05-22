@@ -25,25 +25,26 @@ public class base {
 
         System.out.println(browserName);
 
-        if (browserName.contains("chrome")) {
-            System.setProperty("webdriver.chrome.driver", basePath + "\\src\\main\\resources\\chromedriver.exe");
+        if(browserName != null) {
+            if (browserName.contains("chrome")) {
+                System.setProperty("webdriver.chrome.driver", basePath + "\\src\\main\\resources\\chromedriver.exe");
 
-            //С помощью класса ChromeOptions мы добавляем опцию безголовочного режима если названия браузера содержить слова headless
-            ChromeOptions options = new ChromeOptions();
-            if(browserName.contains("headless")) {
-                options.addArguments("headless");
+                //С помощью класса ChromeOptions мы добавляем опцию безголовочного режима если названия браузера содержить слова headless
+                ChromeOptions options = new ChromeOptions();
+                if (browserName.contains("headless")) {
+                    options.addArguments("headless");
+                }
+
+                driver = new ChromeDriver(options);
+            } else if (browserName.equals("firefox")) {
+                System.setProperty("webdriver.gecko.driver", basePath + "\\src\\main\\resources\\geckodriver.exe");
+                driver = new FirefoxDriver();
+                //firefox code
+            } else if (browserName.equals("IE")) {
+                //	IE code
             }
-
-            driver = new ChromeDriver(options);
         }
-        else if (browserName.equals("firefox")) {
-
-            System.setProperty("webdriver.gecko.driver", basePath + "\\src\\main\\resources\\geckodriver.exe");
-            driver = new FirefoxDriver();
-            //firefox code
-        } else if (browserName.equals("IE")) {
-            //	IE code
-        } else {
+        else {
             System.setProperty("webdriver.chrome.driver", basePath + "\\src\\main\\resources\\chromedriver.exe");
             driver = new ChromeDriver();
         }
@@ -52,6 +53,5 @@ public class base {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         return driver;
-
     }
 }
